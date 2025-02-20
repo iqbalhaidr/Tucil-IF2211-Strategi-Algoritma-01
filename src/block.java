@@ -15,7 +15,7 @@ public class block {
         return buffer;
     }
 
-    public block mirror() {
+    public void mirror() {
         int row = buffer.length;
         int col = buffer[0].length;
         int[][] mirrored = new int[row][col];
@@ -25,10 +25,10 @@ public class block {
                 mirrored[i][col - 1 - j] = buffer[i][j];
             }
         }
-        return new block(id, mirrored);
+        buffer = mirrored;
     }
 
-    public block rotate() {
+    public void rotate() {
         int row = buffer.length;
         int col = buffer[0].length;
         int[][] rotated = new int[col][row];
@@ -38,7 +38,7 @@ public class block {
                 rotated[j][row - 1 - i] = buffer[i][j];
             }
         }
-        return new block(id, rotated);
+        buffer = rotated;
     }
 
     public void print() {
@@ -63,12 +63,18 @@ public class block {
         block.print();
 
         System.out.println("\nRotated:");
-        block b = block.rotate();
-        b.print();
-        b.rotate().print();
+        block.rotate();
+        block.print();
+        block.rotate();
+        block.print();
+        block.rotate();
+        block.print();
+        block.rotate();
+        block.print();
 
         System.out.println("\nMirrored:");
-        block.mirror().print();
+        block.mirror();
+        block.print();
     }
     /* ======================================================================== */
 }
