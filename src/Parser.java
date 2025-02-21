@@ -7,88 +7,126 @@ public class Parser {
     String fileName;
 
     public Parser(String fileName) {
+        if (!isFileExsist(fileName) || !fileName.endsWith(".txt")) {
+            System.out.println("File tidak valid");
+            System.exit(0);
+        }
         this.fileName = fileName;
+    }
+
+    public static boolean isFileExsist(String fileName) {
+        File f = new File("../data/" + fileName);
+        return f.exists();
+    }
+
+    public boolean isUniformCapital(String str) {
+        return str.matches("[A-Z]+") && str.chars().distinct().count() == 1;
     }
 
     public String getFileName() {
         return this.fileName;
     }
 
-    public int getN() {
-        try (Scanner sc = new Scanner(new File("../data/" + fileName))) {
-            String s = sc.nextLine();
-            sc.close();
-            return (s.charAt(0) - '0');
-        } catch (FileNotFoundException e) {
-            System.err.println("Gagal 1");
-            return -1;
-        }
-    }
+    public int[] readParam() {
+        int[] param = new int[3];
 
-    public int getM() {
         try (Scanner sc = new Scanner(new File("../data/" + fileName))) {
-            String s = sc.nextLine();
-            sc.close();
-            return (s.charAt(2) - '0');
-        } catch (FileNotFoundException e) {
-            System.err.println("Gagal 1");
-            return -1;
-        }
-    }
-
-    public int getP() {
-        try (Scanner sc = new Scanner(new File("../data/" + fileName))) {
-            String s = sc.nextLine();
-            sc.close();
-            return (s.charAt(4) - '0');
-        } catch (FileNotFoundException e) {
-            System.err.println("Gagal 1");
-            return -1;
-        }
-    }
-
-    public String getS() {
-        try (Scanner sc = new Scanner(new File("../data/" + fileName))) {
-            String s = sc.nextLine();
-            s = sc.nextLine();
-            sc.close();
-            return (s);
-        } catch (FileNotFoundException e) {
-            System.err.println("Gagal 1");
-            return "Gagal 1";
-        }
-    }
-
-    public static void print2D(int mat[][]) {
-        for (int[] row : mat) {
-            System.out.println();
-            for (int x : row) {
-                System.out.print(x + " ");
+            if (!sc.hasNextLine()) {
+                System.out.println("Parameter tidak ditemukan");
+                System.exit(0);
             }
+
+            String firstLine = sc.nextLine();
+            Scanner sc2 = new Scanner(firstLine);
+
+            if (!firstLine.matches("-?\\d+ -?\\d+ -?\\d+")) {
+                System.out.println("Format parameter tidak valid");
+                System.exit(0);
+            }
+
+            for (int i = 0; i < 3; i++) {
+                param[i] = sc2.nextInt();
+                if (param[i] <= 0) {
+                    System.out.println("Nilai parameter tidak valid");
+                    System.exit(0);
+                }
+            }
+
+            sc2.close();
+            return param;
+
+        } catch (FileNotFoundException e) {
+            System.err.println("File tidak ditemukan");
+            System.exit(0);
+            return null;
+        }
+    }
+
+    public String readMode() {
+        try (Scanner sc = new Scanner(new File("../data/" + fileName))) {
+            if (!sc.hasNextLine()) {
+                System.out.println("Mode tidak ditemukan");
+                System.exit(0);
+            }
+            sc.nextLine();
+
+            if (!sc.hasNextLine()) {
+                System.out.println("Mode tidak ditemukan");
+                System.exit(0);
+            }
+            String secondLine = sc.nextLine();
+
+            sc.close();
+
+            if (!secondLine.equals("DEFAULT")) {
+                System.out.println("Format mode tidak valid");
+                System.exit(0);
+            }
+
+            return (secondLine);
+
+        } catch (FileNotFoundException e) {
+            System.err.println("File tidak ditemukan");
+            return null;
         }
     }
 
     public ArrayList<block> getBlock() {
         try (Scanner sc = new Scanner(new File("../data/" + fileName))) {
+            if (!sc.hasNextLine()) {
+                System.out.println("Block tidak ditemukan");
+                System.exit(0);
+            }
             sc.nextLine();
-            sc.nextLine();
-            ArrayList<block> blList = new ArrayList<block>();
 
+            if (!sc.hasNextLine()) {
+                System.out.println("Block tidak ditemukan");
+                System.exit(0);
+            }
+            sc.nextLine();
+
+            if (!sc.hasNextLine()) {
+                System.out.println("Block tidak ditemukan");
+                System.exit(0);
+            }
+
+            ArrayList<block> blList = new ArrayList<block>();
             String s, sWs;
             ArrayList<Character> idTrack = new ArrayList<Character>();
             ArrayList<String> sameId = new ArrayList<String>();
             ArrayList<ArrayList<String>> allId = new ArrayList<ArrayList<String>>();
             while (sc.hasNextLine()) {
-                s = sc.nextLine();
-                sWs = s.trim();
-                // System.out.println(sWs.charAt(0));
-                // System.out.println(idTrack);
-                // System.out.println(idTrack.contains(sWs.charAt(0)));
-                // System.out.println(s);
+                s = sc.nextLine().stripTrailing();
+                sWs = s.replaceAll("\\s", "");
+
+                if (!isUniformCapital(sWs)) {
+                    System.out.println("Format block tidak valid");
+                    System.exit(0);
+                }
+
                 if (idTrack.contains(sWs.charAt(0))) {
                     sameId.add(s);
                 } else {
-                    // System.out.println("hel");
                     ArrayList<String> sameId2 = new ArrayList<String>(sameId);
                     allId.add(sameId2);
                     sameId.clear();
@@ -104,8 +142,7 @@ public class Parser {
             char idChar;
             for (ArrayList<String> id : allId) {
                 sChar = id.get(0);
-                sChar = sChar.trim();
-                // System.out.println(sChar);
+                sChar = sChar.replaceAll("\\s", "");
                 idChar = sChar.charAt(0);
                 row = id.size();
                 maxCol = -1;
@@ -125,8 +162,6 @@ public class Parser {
                         }
                     }
                 }
-                // System.out.println();
-                // print2D(bl);
                 blList.add(new block(idChar, bl));
             }
             return blList;
@@ -137,21 +172,13 @@ public class Parser {
         }
     }
 
-    public static void main(String[] args) {
-        Parser p = new Parser("1.txt");
-        // System.out.print(p.getN());
-        // System.out.print(p.getM());
-        // System.out.println(p.getP());
-        // System.out.println(p.getS());
-        ArrayList<block> t = p.getBlock();
-        papan pap = new papan(4, 3);
-        solver sol = new solver();
-        if (!sol.solve(pap, t, 0)) {
-            System.out.println("gagal");
-        } else {
-            System.out.println("berhasil");
+    public static void print2D(int mat[][]) {
+        for (int[] row : mat) {
+            System.out.println();
+            for (int x : row) {
+                System.out.print(x + " ");
+            }
         }
-        pap.display2();
-        pap.write("result.txt");
     }
+
 }
