@@ -15,6 +15,14 @@ public class block {
         return buffer;
     }
 
+    public int getRowLen() {
+        return buffer.length;
+    }
+
+    public int getColLen() {
+        return buffer[0].length;
+    }
+
     public void mirror() {
         int row = buffer.length;
         int col = buffer[0].length;
@@ -49,32 +57,4 @@ public class block {
             System.out.println();
         }
     }
-
-    /* ======================================================================== */
-    public static void main(String[] args) {
-        int[][] buffer = {
-                { 1, 0 },
-                { 1, 0 },
-                { 1, 1 }
-        };
-
-        block block = new block('B', buffer);
-        System.out.println("Original:");
-        block.print();
-
-        System.out.println("\nRotated:");
-        block.rotate();
-        block.print();
-        block.rotate();
-        block.print();
-        block.rotate();
-        block.print();
-        block.rotate();
-        block.print();
-
-        System.out.println("\nMirrored:");
-        block.mirror();
-        block.print();
-    }
-    /* ======================================================================== */
 }
