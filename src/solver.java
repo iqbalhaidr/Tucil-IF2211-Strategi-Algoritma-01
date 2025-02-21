@@ -14,11 +14,39 @@ public class solver {
                 if (r > 0) {
                     b.get(idx).rotate();
                 }
-                for (int y = 0; y < p.getRow(); y++) {
-                    for (int x = 0; x < p.getCol(); x++) {
+                for (int y = 0; y <= (p.getRow() - b.get(idx).getRowLen()); y++) {
+                    for (int x = 0; x <= (p.getCol() - b.get(idx).getColLen()); x++) {
                         // p.incEval();
                         if (p.checkPlacement(b.get(idx), x, y)) {
                             p.incEval();
+                            p.place(b.get(idx), x, y);
+                            if (solve(p, b, idx + 1)) {
+                                return true;
+                            }
+                            // p.incEval();
+                            p.remove(b.get(idx), x, y);
+                        }
+                    }
+                }
+            }
+        }
+        // p.incEval();
+        return false;
+    }
+
+    public boolean solve2(papan p, ArrayList<block> b, int idx) {
+        if (idx >= b.size()) {
+            return p.isFull();
+        }
+
+        for (int y = 0; y <= (p.getRow() - b.get(idx).getRowLen()); y++) {
+            for (int x = 0; x <= (p.getCol() - b.get(idx).getColLen()); x++) {
+                for (int m = 0; m < 2; m++) {
+                    b.get(idx).mirror();
+                    for (int r = 0; r < 4; r++) {
+                        b.get(idx).rotate();
+                        p.incEval();
+                        if (p.checkPlacement(b.get(idx), x, y)) {
                             p.place(b.get(idx), x, y);
                             if (solve(p, b, idx + 1)) {
                                 return true;
