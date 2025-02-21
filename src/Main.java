@@ -33,6 +33,7 @@ public class Main {
         } else {
             System.out.println("Solusi ditemukan.\n");
             pp.display2();
+
             System.out.print("Apakah solusi ingin disimpan? (y/n): ");
             String choice = sc.nextLine();
             if (choice.equals("y")) {
@@ -47,7 +48,22 @@ public class Main {
                 System.out.println("Solusi tidak disimpan");
             } else {
                 System.out.println("Pilihan tidak valid");
-                System.exit(0);
+                // System.exit(0);
+            }
+
+            System.out.print("Apakah gambar ingin disimpan? (y/n): ");
+            choice = sc.nextLine();
+            if (choice.equals("y")) {
+                if (pp.draw("../data/solusiGambar.jpg")) {
+                    System.out.println("Gambar berhasil disimpan di ../data/solusiGambar.jpg");
+                } else {
+                    System.out.println("Gambar gagal disimpan");
+                }
+            } else if (choice.equals("n")) {
+                System.out.println("Solusi tidak disimpan");
+            } else {
+                System.out.println("Pilihan tidak valid");
+                // System.exit(0);
             }
         }
         sc.close();

@@ -1,4 +1,8 @@
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.awt.*;
 import java.util.Arrays;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -178,6 +182,62 @@ public class papan {
             }
         }
         return true;
+    }
+
+    public boolean draw(String filename) {
+        try {
+            int cellSize = 50;
+            int canvasWidth = buffer[0].length * cellSize;
+            int canvasHeight = buffer.length * cellSize;
+
+            BufferedImage canvas = new BufferedImage(canvasWidth, canvasHeight, BufferedImage.TYPE_INT_RGB);
+            Graphics2D drawer = canvas.createGraphics();
+            drawer.setFont(new Font("Arial", Font.BOLD, 30));
+
+            Color[] colorPool = {
+                    Color.RED, Color.GREEN, Color.BLUE, Color.ORANGE, Color.CYAN, Color.MAGENTA,
+                    new Color(255, 165, 0), // Orange
+                    new Color(128, 0, 128), // Purple
+                    new Color(255, 20, 147), // Deep Pink
+                    new Color(0, 255, 127), // Spring Green
+                    new Color(70, 130, 180), // Steel Blue
+                    new Color(210, 105, 30), // Chocolate
+                    new Color(128, 128, 0), // Olive
+                    new Color(0, 128, 128), // Teal
+                    new Color(255, 69, 0), // Red-Orange
+                    new Color(147, 112, 219), // Medium Purple
+                    new Color(0, 206, 209), // Dark Turquoise
+                    new Color(154, 205, 50), // Yellow-Green
+                    new Color(255, 215, 0), // Gold
+                    new Color(186, 85, 211), // Medium Orchid
+                    new Color(139, 69, 19), // Saddle Brown
+                    new Color(233, 150, 122), // Dark Salmon
+                    new Color(72, 61, 139), // Dark Slate Blue
+                    new Color(0, 100, 0), // Dark Green
+                    new Color(255, 140, 0), // Dark Orange
+                    new Color(219, 112, 147) // Pale Violet Red
+            };
+
+            for (int i = 0; i < buffer.length; i++) {
+                for (int j = 0; j < buffer[i].length; j++) {
+                    int idx = buffer[i][j] - 'A';
+                    drawer.setColor(colorPool[idx]);
+                    drawer.fillRect(j * cellSize, i * cellSize, cellSize, cellSize);
+                    drawer.setColor(Color.BLACK);
+                    drawer.drawRect(j * cellSize, i * cellSize, cellSize, cellSize);
+                    drawer.setColor(Color.WHITE);
+                    drawer.drawString(String.valueOf(buffer[i][j]), j * cellSize + 15, i * cellSize + 35);
+                }
+            }
+
+            drawer.dispose();
+            ImageIO.write(canvas, "jpg", new File(filename));
+            return true;
+
+        } catch (IOException e) {
+            System.out.println("Gagal menyimpan gambar");
+            return false;
+        }
     }
 
     /* ======================================================================== */
