@@ -1,0 +1,72 @@
+22 5 24
+DEFAULT
+A
+A
+A
+AA
+ B
+BB
+BB
+C C
+CCC
+D
+DD
+D
+E
+E
+EE
+F
+F
+FF
+F
+G
+G
+GG
+ G
+HH
+ HH
+I
+II
+ JJ
+JJ
+J
+KKK
+  K
+  K
+L
+LLL
+ L
+MMM
+  MM
+NN
+N
+O O
+OOO
+PP
+PP
+P
+Q
+Q
+QQQ
+R
+R
+RR
+R
+S
+SS
+S
+T
+T
+T
+TT
+U
+UUU
+ V
+VV
+ VV
+W
+WW
+ W
+XX
+ XX
+  X

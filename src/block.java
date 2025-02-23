@@ -49,12 +49,4 @@ public class block {
         buffer = rotated;
     }
 
-    public void print() {
-        for (int[] row : buffer) {
-            for (int cell : row) {
-                System.out.print(cell == 1 ? id : '.');
-            }
-            System.out.println();
-        }
-    }
 }

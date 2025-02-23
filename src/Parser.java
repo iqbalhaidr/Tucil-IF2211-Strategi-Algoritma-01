@@ -172,13 +172,4 @@ public class Parser {
         }
     }
 
-    public static void print2D(int mat[][]) {
-        for (int[] row : mat) {
-            System.out.println();
-            for (int x : row) {
-                System.out.print(x + " ");
-            }
-        }
-    }
-
 }
