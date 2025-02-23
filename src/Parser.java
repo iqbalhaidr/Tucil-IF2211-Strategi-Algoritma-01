@@ -97,7 +97,13 @@ public class Parser {
                 System.out.println("Block tidak ditemukan");
                 System.exit(0);
             }
-            sc.nextLine();
+
+            String firstLine = sc.nextLine();
+            Scanner sc2 = new Scanner(firstLine);
+            int pPapan = sc2.nextInt();
+            int lPapan = sc2.nextInt();
+            int luasPapan = pPapan * lPapan;
+            sc2.close();
 
             if (!sc.hasNextLine()) {
                 System.out.println("Block tidak ditemukan");
@@ -140,6 +146,7 @@ public class Parser {
             int row, col, maxCol;
             String sChar, sWhite;
             char idChar;
+            int cellBlockCount = 0;
             for (ArrayList<String> id : allId) {
                 sChar = id.get(0);
                 sChar = sChar.replaceAll("\\s", "");
@@ -159,10 +166,16 @@ public class Parser {
                     for (int j = 0; j < id.get(i).length(); j++) {
                         if (sWhite.charAt(j) != ' ') {
                             bl[i][j] = 1;
+                            cellBlockCount += 1;
                         }
                     }
                 }
                 blList.add(new block(idChar, bl));
+            }
+
+            if (cellBlockCount != luasPapan) {
+                System.out.println("Jumlah sel papan dan block tidak sama");
+                System.exit(0);
             }
             return blList;
 

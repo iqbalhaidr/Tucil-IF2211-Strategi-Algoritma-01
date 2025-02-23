@@ -9,10 +9,10 @@ public class Main {
         System.out.flush();
         System.out.println("\nSelamat Datang di IQ Puzzler Pro Solver\n");
         System.out.print("Masukkan nama file: ");
-        // String fileName = sc.nextLine();
+        String fileName = sc.nextLine();
         System.out.println();
 
-        Parser pr = new Parser("test4.txt");
+        Parser pr = new Parser(fileName);
         int[] param = pr.readParam();
         papan pp = new papan(param[0], param[1]);
         String mode = pr.readMode();
@@ -24,7 +24,7 @@ public class Main {
         solver sl = new solver();
 
         long startTime = System.nanoTime();
-        boolean isSolved = sl.solveversi2(pp, bl, 0);
+        boolean isSolved = sl.solve(pp, bl, 0);
         long endTime = System.nanoTime();
         pp.setTime((endTime - startTime) / 1000000);
 
@@ -33,7 +33,6 @@ public class Main {
         } else {
             System.out.println("Solusi ditemukan.\n");
             pp.display();
-            System.exit(0);
 
             System.out.print("Apakah solusi ingin disimpan? (y/n): ");
             String choice = sc.nextLine();

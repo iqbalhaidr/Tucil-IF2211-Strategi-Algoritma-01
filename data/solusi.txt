@@ -1,15 +1,9 @@
-AAAAK
-ABBKK
-CCBBK
-CHHBD
-CCHDD
-NNHDM
-FNNDM
-FFFMM
-EFLJM
-EELJJ
-EELLL
+AGGGD
+AABDD
+CCBBE
+CFFEE
+FFFEE
 
-Waktu pencarian: 2216 ms
+Waktu pencarian: 67 ms
 
-Banyak kasus yang ditinjau: 906612
+Banyak kasus yang ditinjau: 27407

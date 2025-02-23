@@ -14,7 +14,6 @@ public class solver {
                 if (r > 0) {
                     b.get(idx).rotate();
                 }
-                // p.incEval();
                 for (int y = 0; y <= (p.getRow() - b.get(idx).getRowLen()); y++) {
                     for (int x = 0; x <= (p.getCol() - b.get(idx).getColLen()); x++) {
                         if (p.checkPlacement(b.get(idx), x, y)) {
