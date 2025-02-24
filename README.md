@@ -7,11 +7,12 @@ Program ini merupakan solver dari IQ Puzzler Pro dengan menggunakan pendekatan b
 Cara untuk menjalankan program
 1. Clone repositori ini ke perangkat lokal
 2. Tulis data persoalan dan simpan pada "./data/<file.txt>", pastikan data benar-benar mengikuti format yang ditentukan.
-3. Arahkan direktori ke folder yang sesuai
+3. Pastikan perangkat terinstall JDK 23
+4. Arahkan direktori ke folder yang sesuai
 ```
 cd path/to/folder/src/
 ```
-4. Jalankan program dan ikuti perintahnya
+5. Jalankan program dan ikuti perintahnya
 ```
 javac Main.java && java Main
 ```
