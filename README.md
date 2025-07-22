@@ -1,4 +1,4 @@
-# Tugas Kecil 1 IF2211 Strategi Algoritma 2024
+# Tugas Kecil 1 IF2211 Strategi Algoritma 2024/2025
 Program ini merupakan solver dari IQ Puzzler Pro dengan menggunakan pendekatan bruteforce. Program ini dapat mencari solusi yakni posisi dari setiap block pada papan.
 
 
